@@ -1,0 +1,14 @@
+services:
+  app:
+    restart: unless-stopped
+    build:
+      context: ./app
+    ports:
+      - mode: ingress
+        target: 3000
+    deploy:
+      resources:
+        reservations:
+          memory: 256M
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:3000/"]
